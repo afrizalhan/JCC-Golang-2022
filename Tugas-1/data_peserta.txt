@@ -1,0 +1,6 @@
+Data Peserta Jabar Coding Camp Golang
+1. Nama: Raehan Afrizal Wicaksono
+2. Email: afrizalraehan6@gmail.com
+3. Sistem Operasi yang digunakan: Windows
+4. Akun Gitlab/Github: @afrizalhan
+5. Akun Telegram: @rafrizal
