@@ -22,11 +22,13 @@ func volumeBalok(panjang int, lebar int, tinggi int) int {
 
 //fungsi introduce untuk soal no 2
 func introduce(nama string, jk string, profesi string, umur string) (kalimat string){
+	var panggilan string
 	if jk == "perempuan"{
-		kalimat = "Bu " + nama + " adalah seorang " + profesi + " yang berusia " + umur + " tahun"
-		return kalimat
+		panggilan = "Bu "
+	} else {
+		panggilan = "Pak "
 	}
-	kalimat = "Pak " + nama + " adalah seorang " + profesi + " yang berusia " + umur + " tahun"
+	kalimat = panggilan + nama + " adalah seorang " + profesi + " yang berusia " + umur + " tahun"
 	return kalimat
 }
 
@@ -35,10 +37,10 @@ func buahFavorit(nama string, buahan ...string)(kalimat string){
 	kalimat = "halo nama saya " + nama + " dan buah favorit saya adalah "
 
 	for i := 0; i < len(buahan) - 1; i++{
-		kalimat +=  buahan[i] + ", "
+		kalimat +=  "\""+buahan[i]+"\"" + ", "
 	}
 
-	kalimat += buahan[len(buahan) - 1]
+	kalimat += "\"" +buahan[len(buahan) - 1]+"\""
 
 	return kalimat
 }
