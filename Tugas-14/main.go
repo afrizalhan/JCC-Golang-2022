@@ -25,6 +25,22 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
+func getIndeksNilai(nilai uint) string {
+	switch {
+	case nilai >= 80:
+		return "A"
+	case nilai >= 70 && nilai < 80:
+		return "B"
+	case nilai >= 60 && nilai < 70:
+		return "C"
+	case nilai >= 50 && nilai < 60:
+		return "D"
+	default:
+		return "E"
+	}
+}
+
+
 func GetNilai(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	ctx, cancel := context.WithCancel(context.Background())
 
@@ -56,6 +72,13 @@ func PostNilai(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
+	if nilaiMhs.Nilai > 100 {
+		http.Error(w, "Nilai tidak boleh diinput lebih dari 100", http.StatusBadRequest)
+		return
+	}
+
+	nilaiMhs.IndeksNilai = getIndeksNilai(nilaiMhs.Nilai)
+
 	if err := nilai.Insert(ctx, nilaiMhs); err != nil {
 		utils.ResponseJSON(w, err, http.StatusInternalServerError)
 		return
@@ -80,6 +103,13 @@ func UpdateNilai(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		utils.ResponseJSON(w, err, http.StatusBadRequest)
 		return
 	}
+
+	if nilaiMhs.Nilai > 100 {
+		http.Error(w, "Nilai tidak boleh diinput lebih dari 100", http.StatusBadRequest)
+		return
+	}
+
+	nilaiMhs.IndeksNilai = getIndeksNilai(nilaiMhs.Nilai)
 
 	idMhs := ps.ByName("id")
 
